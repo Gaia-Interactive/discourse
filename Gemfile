@@ -191,4 +191,4 @@ end
 gem 'webpush', require: false
 
 # Gems added by PopSquareK listed below:
-#gem 'discourse_api'
+gem 'discourse_api'
