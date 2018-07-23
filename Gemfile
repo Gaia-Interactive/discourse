@@ -189,3 +189,6 @@ if ENV["IMPORT"] == "1"
 end
 
 gem 'webpush', require: false
+
+# Gems added by PopSquareK listed below:
+gem discourse_api
