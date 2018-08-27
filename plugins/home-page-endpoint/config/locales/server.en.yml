@@ -1,0 +1,8 @@
+en:
+  site_settings:
+    endpoint_enabled: 'Enable special endpoints for the home page ember app'
+    endpoint_instgram_access_token: 'Specify Instagram OAuth2 access token '
+    endpoint_enable_streaming: 'Enable Live Streaming'
+    endpoint_enable_streaming_url: 'Live Streaming URL'
+    endpoint_hero_image: 'Enter Hero Image URL'
+    endpoint_ads_image: 'Enter Ads Image URL'

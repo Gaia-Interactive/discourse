@@ -1,0 +1,19 @@
+plugins:
+  endpoint_enabled:
+    default: true
+    client: true
+  endpoint_instgram_access_token:
+    client: true
+    default: ''
+  endpoint_enable_streaming:
+    client: true
+    default: false
+  endpoint_enable_streaming_url:
+    client: true
+    default: ''
+  endpoint_hero_image:
+    client: true
+    default: ''
+  endpoint_ads_image:
+    client: true
+    default: ''
