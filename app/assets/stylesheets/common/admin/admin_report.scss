@@ -1,4 +1,25 @@
 .admin-report {
+  .no-data-alert {
+    background: $secondary;
+    border: 1px solid $primary-low;
+    color: $primary-low-mid;
+    width: 100%;
+    align-self: flex-start;
+    text-align: center;
+    padding: 3em;
+
+    .d-icon-pie-chart {
+      color: currentColor;
+      margin-bottom: 0.25em;
+      font-size: $font-up-5;
+      display: block;
+    }
+  }
+
+  .conditional-loading-section {
+    width: 100%;
+  }
+
   .report-header {
     display: flex;
     justify-content: space-between;
@@ -108,9 +129,12 @@
 
         .date-picker-wrapper,
         .combo-box,
-        .export-btn {
+        .export-csv-btn,
+        .refresh-report-btn {
           width: 100%;
+        }
 
+        .date-picker-wrapper {
           .date-picker {
             width: 100%;
             box-sizing: border-box;
