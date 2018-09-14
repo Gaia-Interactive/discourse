@@ -43,7 +43,7 @@ class ColorScheme < ActiveRecord::Base
       "success" =>           'fdd459',
       "love" =>              'fdd459'
     },
-    # By @awesomerobot
+    # By @rafafotes
     'Shades of Blue': {
       "primary" =>           '203243',
       "secondary" =>         'eef4f7',
@@ -186,14 +186,16 @@ class ColorScheme < ActiveRecord::Base
     new_color_scheme
   end
 
-  def self.lookup_hex_for_name(name)
-    enabled_color_scheme = Theme.where(id: SiteSetting.default_theme_id).first&.color_scheme
+  def self.lookup_hex_for_name(name, scheme_id = nil)
+    enabled_color_scheme = find_by(id: scheme_id) if scheme_id
+    enabled_color_scheme ||= Theme.where(id: SiteSetting.default_theme_id).first&.color_scheme
     (enabled_color_scheme || base).colors.find { |c| c.name == name }.try(:hex) || "nil"
   end
 
-  def self.hex_for_name(name)
-    hex_cache[name] ||= lookup_hex_for_name(name)
-    hex_cache[name] == "nil" ? nil : hex_cache[name]
+  def self.hex_for_name(name, scheme_id = nil)
+    cache_key = scheme_id ? name + "_#{scheme_id}" : name
+    hex_cache[cache_key] ||= lookup_hex_for_name(name, scheme_id)
+    hex_cache[cache_key] == "nil" ? nil : hex_cache[cache_key]
   end
 
   def colors=(arr)
@@ -241,12 +243,15 @@ class ColorScheme < ActiveRecord::Base
 
   def publish_discourse_stylesheet
     if self.id
-      themes = Theme.where(color_scheme_id: self.id).to_a
-      if themes.present?
+      theme_ids = Theme.where(color_scheme_id: self.id).pluck(:id)
+      if theme_ids.present?
         Stylesheet::Manager.cache.clear
-        themes.each do |theme|
-          theme.notify_scheme_change(_clear_manager_cache = false)
-        end
+        Theme.notify_theme_change(
+          theme_ids,
+          with_scheme: true,
+          clear_manager_cache: false,
+          all_themes: true
+        )
       end
     end
   end

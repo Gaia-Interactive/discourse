@@ -14,6 +14,8 @@ export default Ember.Component.extend({
     "name:data-name"
   ],
 
+  forceEscape: Ember.computed.alias("options.forceEscape"),
+
   isNone: Ember.computed.none("computedContent.value"),
 
   ariaHasPopup: true,
@@ -25,7 +27,7 @@ export default Ember.Component.extend({
     if (computedContentTitle) return computedContentTitle;
     if (name) return name;
 
-    return null;
+    return "";
   },
 
   // this might need a more advanced solution

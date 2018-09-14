@@ -632,7 +632,6 @@ vi:
     post_menu: "Xác định các mục nào hiển thị trên menu bài viết, và theo thứ tự nào. Ví dụ like|edit|flag|delete|share|bookmark|reply"
     post_menu_hidden_items: "Các mục được để ẩn theo mặc định trong menu bài viết trừ khi click vào dấu '...' để mở rộng."
     share_links: "Xác định các mục nào hiển thị trên hộp thoại chia sẻ, và theo thứ tự nào."
-    track_external_right_clicks: "Theo dõi các liên kết ngoài được click đúng (vd: mở trong tab mới) bị vô hiệu hóa theo mặc định do Rewrite URL."
     site_contact_username: "Tên tài khoản quản trị viên hợp lệ để gửi tất cả các thông báo tự động. Nếu để trống, tài khoản mặc định của hệ thống sẽ được sử dụng."
     send_welcome_message: "Gửi tất cả các thành viên mới một thông điệp chào mừng kèm theo hướng dẫn nhanh."
     suppress_reply_directly_below: "Không hiện bộ đếm trả lời mở rộng cho bài viết chỉ có duy nhất một trả lời trực tiếp bên dưới bài viết này."
@@ -723,7 +722,6 @@ vi:
     s3_cdn_url: "CDN URL được sử dụng cho tất cả các tài nguyên S3 (vd: https://cdn.somewhere.com). CHÚ Ý: sau khi thay đổi thiết lập này bạn phải tạo lại các bài viết cũ."
     avatar_sizes: "Danh sách những kích thước hình đại diện tự động khởi tạo."
     external_system_avatars_enabled: "Sử dụng dịch vụ ảnh đại diện bên ngoài."
-    default_opengraph_image_url: "URL của ảnh opengraph mặc định."
     allow_all_attachments_for_group_messages: "Cho phép các email có đính kèm trong tin nhắn nhóm."
     enable_flash_video_onebox: "Cho phép nhúng liên kết swf và flv (Adobe Flash). CHÚ Ý: có thể chứa đựng các rủi ro bảo mật."
     default_invitee_trust_level: "Bậc tin tưởng mặc định (0-4) cho thành viên được mời."
@@ -873,7 +871,6 @@ vi:
     slug_generation_method: "Chọn phương thức tạo slug. 'encoded' sẽ tạo ra phần trăm chuỗi mã hóa. 'none' sẽ tắt slug."
     enable_emoji: "Kích hoạt emoji"
     emoji_set: "Bạn thích dùng gói emoji nào?"
-    enforce_square_emoji: "Sử dụng kích thước vuông cho tất cả các emoji."
     approve_post_count: "Số lượng bài viết từ một thành viên mới hoặc thành viên cũ phải được duyệt"
     approve_unless_trust_level: "Bài viết của thành viên dưới cấp độ tin cậy này phải được duyệt"
     default_email_direct: "Gửi email khi ai đó trích dẫn/trả lời/đề cập hoặc mời thành viên theo mặc định."
@@ -937,9 +934,6 @@ vi:
       other: "%{count} bài viết đã được chia thành chủ đề mới: %{topic_link}"
     existing_topic_moderator_post:
       other: "%{count} bài viết đã được hợp nhất vào chủ đề: %{topic_link}"
-  change_owner:
-    post_revision_text: "Chuyển quyền sở hữu từ %{old_user} sang %{new_user}"
-    deleted_user: "xóa người dùng"
   topic_statuses:
     archived_enabled: "Chủ đề này được đưa vào lưu trữ. Nó sẽ không được sửa đổi nữa. "
     archived_disabled: "Chủ đề này được đưa khỏi lưu trữ. Nó có thể được sửa đổi."
@@ -1129,7 +1123,6 @@ vi:
     recent_topics: "Gân đây"
     see_more: "Thêm"
     search_title: "Tìm trang này"
-    search_google: "Goole"
   terms_of_service:
     title: "Điều khoản Dịch vụ"
     signup_form_message: 'Tôi đã đọc và đồng ý với <a href="/tos" target="_blank">Điều khoản dịch vụ</a>.'

@@ -65,6 +65,12 @@ module ApplicationHelper
       if GlobalSetting.cdn_url
         path = path.gsub(GlobalSetting.cdn_url, GlobalSetting.s3_cdn_url)
       else
+        # we must remove the subfolder path here, assets are uploaded to s3
+        # without it getting involved
+        if ActionController::Base.config.relative_url_root
+          path = path.sub(ActionController::Base.config.relative_url_root, "")
+        end
+
         path = "#{GlobalSetting.s3_cdn_url}#{path}"
       end
 
@@ -177,10 +183,8 @@ module ApplicationHelper
     ["ar", "ur", "fa_IR", "he"].include? I18n.locale.to_s
   end
 
-  def user_locale
-    locale = current_user.locale if current_user && SiteSetting.allow_user_locale
-    # changing back to default shoves a blank string there
-    locale.present? ? locale : SiteSetting.default_locale
+  def html_lang
+    SiteSetting.default_locale.sub("_", "-")
   end
 
   # Creates open graph and twitter card meta data
@@ -350,12 +354,18 @@ module ApplicationHelper
     end
   end
 
-  def theme_id
+  def theme_ids
     if customization_disabled?
       nil
     else
-      request.env[:resolved_theme_id]
+      request.env[:resolved_theme_ids]
     end
+  end
+
+  def scheme_id
+    return if theme_ids.blank?
+    theme = Theme.find_by(id: theme_ids.first)
+    theme&.color_scheme_id
   end
 
   def current_homepage
@@ -378,17 +388,17 @@ module ApplicationHelper
   end
 
   def theme_lookup(name)
-    lookup = Theme.lookup_field(theme_id, mobile_view? ? :mobile : :desktop, name)
+    lookup = Theme.lookup_field(theme_ids, mobile_view? ? :mobile : :desktop, name)
     lookup.html_safe if lookup
   end
 
   def discourse_stylesheet_link_tag(name, opts = {})
-    if opts.key?(:theme_id)
-      id = opts[:theme_id] unless customization_disabled?
+    if opts.key?(:theme_ids)
+      ids = opts[:theme_ids] unless customization_disabled?
     else
-      id = theme_id
+      ids = theme_ids
     end
 
-    Stylesheet::Manager.stylesheet_link_tag(name, 'all', id)
+    Stylesheet::Manager.stylesheet_link_tag(name, 'all', ids)
   end
 end

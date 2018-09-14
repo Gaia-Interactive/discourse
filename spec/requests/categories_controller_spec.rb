@@ -26,6 +26,13 @@ describe CategoriesController do
       expect(html.css('body.crawler')).to be_present
       expect(html.css("a[href=\"/forum/c/#{category.slug}\"]")).to be_present
     end
+
+    it "properly preloads topic list" do
+      SiteSetting.categories_topics = 5
+      SiteSetting.categories_topics.times { Fabricate(:topic) }
+      get "/categories"
+      expect(response.body).to include(%{"more_topics_url":"/latest"})
+    end
   end
 
   context 'extensibility event' do
@@ -91,6 +98,18 @@ describe CategoriesController do
           }
 
           expect(response.status).to eq(422)
+        end
+
+        it "returns errors with invalid group" do
+          category = Fabricate(:category, user: admin)
+          readonly = CategoryGroup.permission_types[:readonly]
+
+          post "/categories.json", params: {
+            name: category.name, color: "ff0", text_color: "fff", permissions: { "invalid_group" => readonly }
+          }
+
+          expect(response.status).to eq(422)
+          expect(JSON.parse(response.body)['errors']).to be_present
         end
       end
 

@@ -10,15 +10,15 @@ describe ColorScheme do
 
   it "correctly invalidates theme css when changed" do
     scheme = ColorScheme.create_from_base(name: 'Bob')
-    theme = Theme.new(name: 'Amazing Theme', color_scheme_id: scheme.id, user_id: -1)
+    theme = Fabricate(:theme, color_scheme_id: scheme.id)
     theme.set_field(name: :scss, target: :desktop, value: '.bob {color: $primary;}')
     theme.save!
 
-    href = Stylesheet::Manager.stylesheet_href(:desktop_theme, theme.id)
+    href = Stylesheet::Manager.stylesheet_data(:desktop_theme, theme.id)[0][:new_href]
 
     ColorSchemeRevisor.revise(scheme, colors: [{ name: 'primary', hex: 'bbb' }])
 
-    href2 = Stylesheet::Manager.stylesheet_href(:desktop_theme, theme.id)
+    href2 = Stylesheet::Manager.stylesheet_data(:desktop_theme, theme.id)[0][:new_href]
 
     expect(href).not_to eq(href2)
   end
@@ -63,6 +63,13 @@ describe ColorScheme do
 
       it "returns nil for a missing attribute" do
         expect(ColorScheme.hex_for_name('undefined')).to eq nil
+      end
+
+      it "returns the base color for an attribute of a specified scheme" do
+        scheme = ColorScheme.create_from_base(name: "test scheme")
+        ColorSchemeRevisor.revise(scheme, colors: [{ name: "header_background", hex: "9dc927", default_hex: "949493" }])
+        scheme.reload
+        expect(ColorScheme.hex_for_name("header_background", scheme.id)).to eq("9dc927")
       end
 
       it "returns the base color for an attribute" do

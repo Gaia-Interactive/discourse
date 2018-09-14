@@ -133,6 +133,7 @@ RSpec.configure do |config|
     end
 
     unfreeze_time
+    ActionMailer::Base.deliveries.clear
 
     raise if ActiveRecord::Base.connection_pool.stat[:busy] > 1
   end
@@ -172,6 +173,17 @@ RSpec.configure do |config|
       $test_cleanup_callbacks.reverse_each(&:call)
       $test_cleanup_callbacks = nil
     end
+  end
+
+  config.before(:each, type: :multisite) do
+    RailsMultisite::ConnectionManagement.config_filename =
+      "spec/fixtures/multisite/two_dbs.yml"
+  end
+
+  config.after(:each, type: :multisite) do
+    RailsMultisite::ConnectionManagement.clear_settings!
+    ActiveRecord::Base.clear_active_connections!
+    ActiveRecord::Base.establish_connection
   end
 
   class TestCurrentUserProvider < Auth::DefaultCurrentUserProvider

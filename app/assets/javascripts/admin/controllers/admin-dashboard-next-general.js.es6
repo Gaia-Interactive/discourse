@@ -4,18 +4,11 @@ import AdminDashboardNext from "admin/models/admin-dashboard-next";
 import Report from "admin/models/report";
 import PeriodComputationMixin from "admin/mixins/period-computation";
 
-const ACTIVITY_METRICS_REPORTS = [
-  "page_view_total_reqs",
-  "visits",
-  "time_to_first_response",
-  "likes",
-  "flags",
-  "user_to_user_private_messages_with_replies"
-];
-
 function staticReport(reportType) {
   return function() {
-    return this.get("reports").find(x => x.type === reportType);
+    return Ember.makeArray(this.get("reports")).find(
+      report => report.type === reportType
+    );
   }.property("reports.[]");
 }
 
@@ -31,24 +24,61 @@ export default Ember.Controller.extend(PeriodComputationMixin, {
   shouldDisplayDurability: Ember.computed.and("diskSpace"),
 
   @computed
-  topReferredTopicsTopions() {
-    return { table: { total: false, limit: 8 } };
+  activityMetrics() {
+    return [
+      "page_view_total_reqs",
+      "visits",
+      "time_to_first_response",
+      "likes",
+      "flags",
+      "user_to_user_private_messages_with_replies"
+    ];
+  },
+
+  @computed
+  activityMetricsFilters() {
+    return {
+      startDate: this.get("lastMonth"),
+      endDate: this.get("today")
+    };
+  },
+
+  @computed
+  topReferredTopicsOptions() {
+    return {
+      table: { total: false, limit: 8 }
+    };
+  },
+
+  @computed
+  topReferredTopicsFilters() {
+    return {
+      startDate: moment()
+        .subtract(6, "days")
+        .startOf("day"),
+      endDate: this.get("today")
+    };
+  },
+
+  @computed
+  trendingSearchFilters() {
+    return {
+      startDate: moment()
+        .subtract(6, "days")
+        .startOf("day"),
+      endDate: this.get("today")
+    };
   },
 
   @computed
   trendingSearchOptions() {
-    return { table: { total: false, limit: 8 } };
+    return {
+      table: { total: false, limit: 8 }
+    };
   },
 
   usersByTypeReport: staticReport("users_by_type"),
   usersByTrustLevelReport: staticReport("users_by_trust_level"),
-
-  @computed("reports.[]")
-  activityMetricsReports(reports) {
-    return reports.filter(report =>
-      ACTIVITY_METRICS_REPORTS.includes(report.type)
-    );
-  },
 
   fetchDashboard() {
     if (this.get("isLoading")) return;
@@ -66,7 +96,9 @@ export default Ember.Controller.extend(PeriodComputationMixin, {
           this.setProperties({
             dashboardFetchedAt: new Date(),
             model: adminDashboardNextModel,
-            reports: adminDashboardNextModel.reports.map(x => Report.create(x))
+            reports: Ember.makeArray(adminDashboardNextModel.reports).map(x =>
+              Report.create(x)
+            )
           });
         })
         .catch(e => {
@@ -84,12 +116,16 @@ export default Ember.Controller.extend(PeriodComputationMixin, {
 
   @computed("model.attributes.updated_at")
   updatedTimestamp(updatedAt) {
-    return moment(updatedAt).format("LLL");
+    return moment(updatedAt)
+      .tz(moment.tz.guess())
+      .format("LLL");
   },
 
   @computed("lastBackupTakenAt")
   backupTimestamp(lastBackupTakenAt) {
-    return moment(lastBackupTakenAt).format("LLL");
+    return moment(lastBackupTakenAt)
+      .tz(moment.tz.guess())
+      .format("LLL");
   },
 
   _reportsForPeriodURL(period) {

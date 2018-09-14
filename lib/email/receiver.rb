@@ -31,6 +31,7 @@ module Email
     class TopicNotFoundError           < ProcessingError; end
     class TopicClosedError             < ProcessingError; end
     class InvalidPost                  < ProcessingError; end
+    class TooShortPost                 < ProcessingError; end
     class InvalidPostAction            < ProcessingError; end
     class UnsubscribeNotAllowed        < ProcessingError; end
     class EmailNotAllowed              < ProcessingError; end
@@ -170,8 +171,12 @@ module Email
 
         raise first_exception if first_exception
 
-        if post = find_related_post(force: true)
-          if Guardian.new(user).can_see_post?(post) && post.created_at < 90.days.ago
+        post = find_related_post(force: true)
+
+        if post && Guardian.new(user).can_see_post?(post)
+          num_of_days = SiteSetting.disallow_reply_by_email_after_days
+
+          if num_of_days > 0 && post.created_at < num_of_days.days.ago
             raise OldDestinationError.new("#{Discourse.base_url}/p/#{post.id}")
           end
         end
@@ -231,9 +236,12 @@ module Email
           reason = I18n.t("user.deactivated", email: user.email)
           StaffActionLogger.new(Discourse.system_user).log_user_deactivate(user, reason)
         elsif range === SiteSetting.bounce_score_threshold
-          # NOTE: we check bounce_score before sending emails, nothing to do here other than log it happened.
+          # NOTE: we check bounce_score before sending emails
+          # So log we revoked the email...
           reason = I18n.t("user.email.revoked", email: user.email, date: user.user_stat.reset_bounce_score_after)
           StaffActionLogger.new(Discourse.system_user).log_revoke_email(user, reason)
+          # ... and PM the user
+          SystemMessage.create_from_system_user(user, :email_revoked)
         end
       end
     end
@@ -523,14 +531,16 @@ module Email
     end
 
     def sent_to_mailinglist_mirror?
-      destinations.each do |destination|
-        next unless destination[:type] == :category
+      @sent_to_mailinglist_mirror ||= begin
+        destinations.each do |destination|
+          next unless destination[:type] == :category
 
-        category = destination[:obj]
-        return true if category.mailinglist_mirror?
+          category = destination[:obj]
+          return true if category.mailinglist_mirror?
+        end
+
+        false
       end
-
-      false
     end
 
     def self.check_address(address)
@@ -586,12 +596,14 @@ module Email
           raise ReplyUserNotMatchingError, "post_reply_key.user_id => #{post_reply_key.user_id.inspect}, user.id => #{user.id.inspect}"
         end
 
+        post = Post.with_deleted.find(post_reply_key.post_id)
+
         create_reply(user: user,
                      raw: body,
                      elided: elided,
                      hidden_reason_id: hidden_reason_id,
-                     post: post_reply_key.post,
-                     topic: post_reply_key.post.topic,
+                     post: post,
+                     topic: post&.topic,
                      skip_validations: user.staged?)
       end
     end
@@ -824,13 +836,14 @@ module Email
 
     def create_reply(options = {})
       raise TopicNotFoundError if options[:topic].nil? || options[:topic].trashed?
+      options[:post] = nil if options[:post]&.trashed?
 
       if post_action_type = post_action_for(options[:raw])
         create_post_action(options[:user], options[:post], post_action_type)
       else
         raise TopicClosedError if options[:topic].closed?
-        options[:topic_id] = options[:post].try(:topic_id)
-        options[:reply_to_post_number] = options[:post].try(:post_number)
+        options[:topic_id] = options[:topic].id
+        options[:reply_to_post_number] = options[:post]&.post_number
         options[:is_group_message] = options[:topic].private_message? && options[:topic].allowed_groups.exists?
         create_post_with_attachments(options)
       end
@@ -897,7 +910,7 @@ module Email
     end
 
     def attachment_markdown(upload)
-      if FileHelper.is_image?(upload.original_filename)
+      if FileHelper.is_supported_image?(upload.original_filename)
         "<img src='#{upload.url}' width='#{upload.width}' height='#{upload.height}'>"
       else
         "<a class='attachment' href='#{upload.url}'>#{upload.original_filename}</a> (#{number_to_human_size(upload.filesize)})"
@@ -932,7 +945,14 @@ module Email
       user = options.delete(:user)
       result = NewPostManager.new(user, options).perform
 
-      raise InvalidPost, result.errors.full_messages.join("\n") if result.errors.any?
+      errors = result.errors.full_messages
+      if errors.any? do |message|
+           message.include?(I18n.t("activerecord.attributes.post.raw").strip) &&
+           message.include?(I18n.t("errors.messages.too_short", count: SiteSetting.min_post_length).strip)
+         end
+        raise TooShortPost
+      end
+      raise InvalidPost, errors.join("\n") if result.errors.any?
 
       if result.post
         @incoming_email.update_columns(topic_id: result.post.topic_id, post_id: result.post.id)

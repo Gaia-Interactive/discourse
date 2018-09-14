@@ -31,10 +31,14 @@ const bindings = {
   "g b": { path: "/bookmarks" },
   "g p": { path: "/my/activity" },
   "g m": { path: "/my/messages" },
+  "g d": { path: "/my/activity/drafts" },
   home: { handler: "goToFirstPost", anonymous: true },
   "command+up": { handler: "goToFirstPost", anonymous: true },
   j: { handler: "selectDown", anonymous: true },
   k: { handler: "selectUp", anonymous: true },
+  // we use this odd routing here vs a postAction: cause like
+  // has an animation so the widget handles that
+  // TODO: teach controller how to trigger the widget animation
   l: { click: ".topic-post.selected button.toggle-like" },
   "m m": { handler: "setTrackingToMuted" }, // mark topic as muted
   "m r": { handler: "setTrackingToRegular" }, // mark topic as regular
@@ -296,7 +300,7 @@ export default {
   sendToSelectedPost(action) {
     const container = this.container;
     // TODO: We should keep track of the post without a CSS class
-    const selectedPostId = parseInt(
+    let selectedPostId = parseInt(
       $(".topic-post.selected article.boxed").data("post-id"),
       10
     );

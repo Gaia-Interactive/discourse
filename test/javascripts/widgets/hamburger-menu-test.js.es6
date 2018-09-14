@@ -138,8 +138,8 @@ widgetTest("top categories - anonymous", {
   anonymous: true,
 
   beforeEach() {
-    this.siteSettings.hamburger_menu_categories_count = 8;
-    maxCategoriesToDisplay = this.siteSettings.hamburger_menu_categories_count;
+    this.siteSettings.header_dropdown_category_count = 8;
+    maxCategoriesToDisplay = this.siteSettings.header_dropdown_category_count;
     categoriesByCount = this.site.get("categoriesByCount");
   },
 
@@ -148,6 +148,13 @@ widgetTest("top categories - anonymous", {
     const maximum =
       count <= maxCategoriesToDisplay ? count : maxCategoriesToDisplay;
     assert.equal(find(".category-link").length, maximum);
+    assert.equal(
+      find(".category-link .category-name").text(),
+      categoriesByCount
+        .slice(0, maxCategoriesToDisplay)
+        .map(c => c.name)
+        .join("")
+    );
   }
 });
 
@@ -155,8 +162,8 @@ widgetTest("top categories", {
   template: '{{mount-widget widget="hamburger-menu"}}',
 
   beforeEach() {
-    this.siteSettings.hamburger_menu_categories_count = 8;
-    maxCategoriesToDisplay = this.siteSettings.hamburger_menu_categories_count;
+    this.siteSettings.header_dropdown_category_count = 8;
+    maxCategoriesToDisplay = this.siteSettings.header_dropdown_category_count;
     categoriesByCount = this.site.get("categoriesByCount").slice();
     categoriesByCount.every(c => {
       if (!topCategoryIds.includes(c.id)) {

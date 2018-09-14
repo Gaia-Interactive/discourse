@@ -497,7 +497,6 @@ sw:
       self: "Bado hauna shughuli."
       others: "Hakuna shughuli."
     no_bookmarks:
-      self: "Haujatunza machapisho, utunzaji wa machapisho utakuruhusu uweze kuziona kwa urahizi zaidi baadae."
       others: "Hakuna mialamisho."
     no_likes_given:
       self: "Haujapenda machapisho yoyote."
@@ -566,6 +565,7 @@ sw:
       yaxis: "Idadi ya utembeleaji"
     signups:
       xaxis: "Siku"
+      description: "Akaunti mpya zilizosajiliwa katika kipindi hiki"
     new_contributors:
       title: "Wachangiaji Wapya"
       xaxis: "Siku"
@@ -578,10 +578,12 @@ sw:
       title: "Mada"
       xaxis: "Siku"
       yaxis: "Idadi ya mada mpya"
+      description: "Mada mpya zilizotengenezwa katika kipindi hiki"
     posts:
       title: "Machapisho"
       xaxis: "Siku"
       yaxis: "Namba ya machapisho mapya"
+      description: "Machapisho mapya yaliyotengenezwa kwenye kipindi hiki"
     likes:
       title: "Upendo"
       xaxis: "Siku"
@@ -771,7 +773,6 @@ sw:
     summary_max_results: "Kiwango cha juu cha machapisho zinazoonyeshwa kutoka kwa 'Muhtasari wa Hii Mada'"
     enable_personal_messages: "Ruhusu watumiaji wenye kiwango cha 1 cha uaminifu (inasanidiwa kwa kupitia kiwango cha chini cha uaminifu kutuma ujumbe) kutuma ujumbe wa barua pepe. Wasaidizi wataweza kutuma ujumbe mda kila wakati."
     enable_system_message_replies: "Waruhusu watumiaji wajibu ujumbe wa mfumo,hata kama ujumbe binafsi umezuiliwa."
-    enable_personal_email_messages: "Ruhusu watumiaji wenye kiwango cha 4 cha uaminifu (inasanidiwa kwa kupitia kiwango cha chini cha uaminifu kutuma ujumbe) kutuma ujumbe wa barua pepe. Wasaidizi wataweza kutuma ujumbe mda kila wakati."
     notify_mods_when_user_silenced: "Kama mtumiaji akinyamazishwa, tuma ujumbe kwa wasimamizi wote."
     enable_markdown_linkify: "Otomatikali maneno yanayofanana na kiungo ni kiungo: www.site.com na http://site.com zitakuwa viungo otomatikali."
     markdown_linkify_tlds: "Orodha ya vikoa vya hali ya juu ambavyo otomatikali  ni  viungo."
@@ -1006,9 +1007,6 @@ sw:
     errors:
       different_topics: "Machapisho kutoka mada tofauti hayawezi kuunganishwa."
       different_users: "Machapisho kutoka watumiaji tofauti hayawezi kuunganishwa."
-  change_owner:
-    post_revision_text: "Umiliki umeamishwa kutoka kwa %{old_user} kwenda kwa %{new_user}"
-    deleted_user: "mtumiaji aliyefutwa"
   topic_statuses:
     archived_enabled: "Mada hii ni nyaraka. Imesimamishwa na haiwezi kubadilishwa."
     archived_disabled: "Mada hii sio nyaraka. Haijasimamishwa na inaweza kubadilishwa."
@@ -1518,13 +1516,6 @@ sw:
     too_many_spam_flags:
       title: "Bendera Nyingi Sana za Taka"
       subject_template: "Akaunti mpya inasubirishwa"
-      text_body_template: |
-        Habari,
-
-        Huu ni ujumbe wa roboti kutoka %{site_name}kukujulisha kuwa machapisho yako yamefichwa kwa mda mfupi kwa sababu yamepewa bendera na jukwaa.
-
-        Kama tahadhari, akaunti yako mpya imenyamazishwa haitatengeneza majibu au mada mpya mpaka msaidizi wetu akikagua akaunti yako. Tunaomba radhi kwa usumbufu wowote utakao tokea.
-        Kwa mwongozo zaidi, tafadhali tembelea [mwongozo wa jukwaa](%{base_url}/mwongozo).
     too_many_tl3_flags:
       title: "Bendera Nyingi za Kiwango cha Uaminifu cha 3"
       subject_template: "Akaunti mpya inasubirishwa"
@@ -1962,7 +1953,6 @@ sw:
     recent_topics: "Hivi Karibuni"
     see_more: "Zaidi"
     search_title: "Tafuta tovuti hii"
-    search_google: "Google"
   offline:
     title: "Haiwezi kupakia programu-tumizi"
     offline_page_message: "Inaonekana kuwa hauko hewani! Tafadhali angalia muunganisho wa mtandao na jaribu tena."

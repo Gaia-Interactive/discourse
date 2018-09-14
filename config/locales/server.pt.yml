@@ -511,7 +511,6 @@ pt:
       long_form: 'gostou disto'
   user_activity:
     no_bookmarks:
-      self: "Não tem publicações marcadas, marcar publicações permite-lhe aceder-lhes facilmente mais tarde."
       others: "Sem marcadores."
     no_likes_given:
       self: "Ainda não gostou de nenhuma publicação."
@@ -810,7 +809,6 @@ pt:
     post_menu: "Determine que itens irão aparecer no menu de mensagens, e em que ordem. Exemplo\ngostar|editar|sinalizar|eliminar|partilhar|marcar|responder"
     post_menu_hidden_items: "Os elementos do menu a serem escondidos por defeito no menu de mensagens a não ser que se clique na elipse de expansão."
     share_links: "Determinar que elementos aparecem no diálogo de partilha, e em que ordem."
-    track_external_right_clicks: "Acompanhar cliques externos que são clicados com o botão direito (ex: abrir num novo separador) desativado por padrão pois este reescreve URLs"
     site_contact_username: "Um nome de utilizador válido de um membro do pessoal de onde enviar todas as mensagens automatizadas. Quando deixado em branco, a conta padrão do Sistema será usada."
     send_welcome_message: "Enviar a todos os novos utilizadores uma mensagem de boas-vindas com um guia de início rápido."
     suppress_reply_directly_below: "Não mostrar a contagem de respostas expansível quando há apenas uma única resposta diretamente abaixo desta publicação."
@@ -909,8 +907,6 @@ pt:
     avatar_sizes: "Lista de tamanhos de avatar gerados automaticamente."
     external_system_avatars_enabled: "Utilize o serviço do sistema externo de avatars."
     external_system_avatars_url: "URL do serviço de avatares externo do sistema. Substituições permitidas são {username} {first_letter} {color} {size}"
-    default_opengraph_image_url: "URL da imagem opengraph por defeito."
-    twitter_summary_large_image_url: "URL da imagem do cartão de sumário de defeito do Twitter (deverá ser pelo menos 280px em largura, e pelo menos 150px em altura)."
     allow_all_attachments_for_group_messages: "Permitir qualquer anexo de email nas mensagens de grupo."
     enable_flash_video_onebox: "Ativar a incorporação de hiperligações swf e flv (Adobe Flash) em caixas únicas. AVISO: pode introduzir riscos de segurança."
     default_invitee_trust_level: "Nível de Confiança padrão (0-4) para utilizadores convidados."
@@ -1097,7 +1093,6 @@ pt:
     slug_generation_method: "Escolha um método de geração slug. 'encoded' irá gerar sequências de caracteres com código percentual. 'none' irá desativar slug por completo."
     enable_emoji: "Ativar emoji"
     emoji_set: "Como gostaria de ter o seu emoji?"
-    enforce_square_emoji: "Forçar uma relação de aspecto quadrado para todos os emojis."
     approve_post_count: "A quantidade de publicações de um novo utilizador ou utilizador básico que devem ser aprovadas"
     approve_unless_trust_level: "Mensagens para utilizadores abaixo deste nível de confiança devem ser aprovados"
     approve_new_topics_unless_trust_level: "Novos tópicos para utilizadores abaixo deste nível de confiança devem ser aprovados"
@@ -1203,9 +1198,6 @@ pt:
     existing_topic_moderator_post:
       one: "Uma mensagem foi unida em um tópico existente: %{topic_link}"
       other: "%{count} mensagens foram unidas em um tópico existente: %{topic_link}"
-  change_owner:
-    post_revision_text: "Direito de posse transferido de %{old_user} para %{new_user}"
-    deleted_user: "um utilizador eliminado"
   topic_statuses:
     archived_enabled: "Este tópico está agora arquivado. Está congelado e não pode ser alterado de qualquer maneira."
     archived_disabled: "Este tópico foi agora desarquivado. Já não está congelado, e pode ser alterado."
@@ -1619,7 +1611,6 @@ pt:
     recent_topics: "Recente"
     see_more: "Mais"
     search_title: "Pesquisar neste sítio"
-    search_google: "Google"
   terms_of_service:
     title: "Termos de Serviço"
     signup_form_message: 'Li e aceito os <a href="/tos" target="_blank">Termos de Serviço</a>.'

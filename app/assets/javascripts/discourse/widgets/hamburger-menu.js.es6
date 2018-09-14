@@ -155,10 +155,7 @@ export default createWidget("hamburger-menu", {
       });
     }
 
-    if (
-      this.siteSettings.enable_group_directory ||
-      (this.currentUser && this.currentUser.staff)
-    ) {
+    if (this.siteSettings.enable_group_directory) {
       links.push({
         route: "groups",
         className: "groups-link",
@@ -178,7 +175,7 @@ export default createWidget("hamburger-menu", {
 
   listCategories() {
     const maxCategoriesToDisplay = this.siteSettings
-      .hamburger_menu_categories_count;
+      .header_dropdown_category_count;
     let categories = this.site.get("categoriesByCount");
 
     if (this.currentUser) {

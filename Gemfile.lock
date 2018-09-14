@@ -190,7 +190,7 @@ GEM
     logstash-event (1.2.02)
     logstash-logger (0.26.1)
       logstash-event (~> 1.2)
-    logster (1.2.9)
+    logster (1.2.11)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -206,6 +206,7 @@ GEM
     mini_portile2 (2.3.0)
     mini_racer (0.2.0)
       libv8 (>= 6.3)
+    mini_scheduler (0.8.1)
     mini_sql (0.1.10)
     mini_suffix (0.3.0)
       ffi (~> 1.9)
@@ -262,7 +263,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    onebox (1.8.55)
+    onebox (1.8.60)
       htmlentities (~> 4.3)
       moneta (~> 1.0)
       multi_json (~> 1.11)
@@ -276,7 +277,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    pg (1.0.0)
+    pg (1.1.3)
     powerpack (0.1.2)
     progress (3.4.0)
     pry (0.10.4)
@@ -305,7 +306,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    rails_multisite (2.0.5)
+    rails_multisite (2.0.4)
       activerecord (> 4.2, < 6)
       railties (> 4.2, < 6)
     railties (5.2.0)
@@ -326,6 +327,7 @@ GEM
       ffi (>= 1.0.6)
       msgpack (>= 0.4.3)
       trollop (>= 1.16.2)
+    rchardet (1.8.0)
     redis (4.0.1)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
@@ -462,6 +464,7 @@ DEPENDENCIES
   bullet
   byebug
   certified
+  colored2
   cppjieba_rb
   discourse_api
   danger
@@ -496,6 +499,7 @@ DEPENDENCIES
   message_bus
   mini_mime
   mini_racer
+  mini_scheduler
   mini_sql
   mini_suffix
   minitest
@@ -513,7 +517,7 @@ DEPENDENCIES
   omniauth-oauth2
   omniauth-openid
   omniauth-twitter
-  onebox (= 1.8.55)
+  onebox (= 1.8.60)
   openid-redis-store
   pg
   pry-nav
@@ -528,6 +532,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify (~> 0.9)
   rbtrace
+  rchardet
   redis
   redis-namespace
   rinku
@@ -557,4 +562,4 @@ DEPENDENCIES
   webpush
 
 BUNDLED WITH
-   1.16.3
+   1.16.4

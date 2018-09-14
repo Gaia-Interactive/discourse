@@ -563,7 +563,6 @@ nl:
       long_form: 'vindt dit bericht leuk'
   user_activity:
     no_bookmarks:
-      self: "U hebt geen bladwijzers voor berichten; door bladwijzers voor berichten te maken, kunt u deze later makkelijk terugvinden."
       others: "Geen bladwijzers."
     no_likes_given:
       self: "U hebt geen berichten geliket."
@@ -861,7 +860,6 @@ nl:
     post_menu: "De volgorde en selectie van items in het berichtmenu. Bijvoorbeeld like|edit|flag|delete|share|bookmark|reply"
     post_menu_hidden_items: "De menu-items die standaard verborgen moeten worden in het post menu totdat er op de uitbreidings-ellips is geklikt."
     share_links: "Bepaal de volgorde en selectie van items in het deelmenu."
-    track_external_right_clicks: "Houd bij welke externe links met de rechtermuisknop worden aangeklikt (bijv: open in nieuwe tab). Dit staat standaard uit, gezien het de URLs moet herschrijven, waardoor het gebruiksgemak afneemt"
     site_contact_username: "Een geldige gebruikersnaam van een staflid waarvandaan alle automatische berichten worden verzonden. Wanneer leeg gelaten, wordt de standaardaccount van het systeem gebruikt."
     send_welcome_message: "Stuur alle nieuwe gebruikers een welkomstbericht met een snel-start-gids."
     suppress_reply_directly_below: "Verberg de uitklapbare reactieteller bij een post als er maar één reactie direct onder staat."
@@ -956,7 +954,6 @@ nl:
     avatar_sizes: "Lijst van automatisch gegenereerde avatar groottes."
     external_system_avatars_enabled: "Gebruik een avatars service van een extern systeem."
     external_system_avatars_url: "URL van de externe avatar service. Toegestaande vervangingen zijn {username} {first_letter} {color} {size}"
-    default_opengraph_image_url: "URL van de standaard opengraph afbeelding."
     png_to_jpg_quality: "Kwaliteit van het geconverteerde JPG bestand (1 is laagste kwaliteit, 99 is beste kwaliteit, 100 om uit te schakelen)."
     strip_image_metadata: "Verwijder metadata uit afbeelding."
     enable_flash_video_onebox: "Embedden van swf en flv (Adobe Flash) links toestaan in oneboxen. LET OP: dit kan onveilig zijn"
@@ -1107,7 +1104,6 @@ nl:
     slug_generation_method: "Kies een slug generate methode. 'encoded' zal een percentage encoderen string genereren. 'none' zal slug helemaal uitschakelen."
     enable_emoji: "Inschakelen emoji"
     emoji_set: "Welke emoji wilt u gebruiken?"
-    enforce_square_emoji: "Forceer een vierkant aspect ratio bij alle emojis."
     approve_post_count: "Het aantal berichten van een nieuwe of normale gebruiker dat moet worden goedgekeurd"
     approve_unless_trust_level: "Posts voor gebruikers onder dit vertrouwensniveau moeten worden goedgekeurd"
     approve_new_topics_unless_trust_level: "Nieuwe topics voor gebruikers onder dit vertrouwensniveau moeten worden goedgekeurd"
@@ -1174,9 +1170,6 @@ nl:
     existing_topic_moderator_post:
       one: "Een bericht is samengevoegd in een bestaand topic: %{topic_link}"
       other: "%{count} berichten zijn samengevoegd in een bestaand topic: %{topic_link}"
-  change_owner:
-    post_revision_text: "Eigendom overgezet van %{old_user} naar %{new_user}"
-    deleted_user: "een verwijderde gebruiker"
   topic_statuses:
     archived_enabled: "Dit topic is nu gearchiveerd. Het is bevroren en kan op geen enkele manier worden gewijzigd."
     archived_disabled: "Dit topic is nu niet meer gearchiveerd. Het is niet meer bevroren en kan worden gewijzigd."
@@ -1408,7 +1401,6 @@ nl:
     recent_topics: "Recent"
     see_more: "Meer"
     search_title: "Zoeken op deze website"
-    search_google: "Google"
   terms_of_service:
     title: "Servicevoorwaarden"
     signup_form_message: 'Ik heb de <a href="/tos" target="_blank">Servicevoorwaarden</a> gelezen en ga hiermee akkoord.'

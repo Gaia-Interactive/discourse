@@ -1423,7 +1423,6 @@ describe UsersController do
 
           put "/u/#{user.username}.json", params: {
             name: 'Jim Tom',
-            custom_fields: { test: :it },
             muted_usernames: "#{user2.username},#{user3.username}",
             watched_tags: "#{tags[0].name},#{tags[1].name}"
           }
@@ -1433,14 +1432,14 @@ describe UsersController do
           user.reload
 
           expect(user.name).to eq 'Jim Tom'
-          expect(user.custom_fields['test']).to eq 'it'
+
           expect(user.muted_users.pluck(:username).sort).to eq [user2.username, user3.username].sort
           expect(TagUser.where(
             user: user,
             notification_level: TagUser.notification_levels[:watching]
           ).pluck(:tag_id)).to contain_exactly(tags[0].id, tags[1].id)
 
-          theme = Theme.create(name: "test", user_selectable: true, user_id: -1)
+          theme = Fabricate(:theme, user_selectable: true)
 
           put "/u/#{user.username}.json", params: {
             muted_usernames: "",
@@ -1515,6 +1514,46 @@ describe UsersController do
               expect(response.status).to eq(200)
               expect(user.user_fields[user_field.id.to_s]).to be_blank
             end
+          end
+
+          context "custom_field" do
+            before do
+              plugin = Plugin::Instance.new
+              plugin.register_editable_user_custom_field :test2
+            end
+
+            after do
+              User.plugin_editable_user_custom_fields.clear
+            end
+
+            it "only updates allowed user fields" do
+              put "/u/#{user.username}.json", params: { custom_fields: { test1: :hello1, test2: :hello2 } }
+
+              expect(response.status).to eq(200)
+              expect(user.custom_fields["test1"]).to be_blank
+              expect(user.custom_fields["test2"]).to eq("hello2")
+            end
+
+            it "works alongside a user field" do
+              user_field = Fabricate(:user_field, editable: true)
+              put "/u/#{user.username}.json", params: { custom_fields: { test1: :hello1, test2: :hello2 }, user_fields: { user_field.id.to_s => 'happy' } }
+              expect(response.status).to eq(200)
+              expect(user.custom_fields["test1"]).to be_blank
+              expect(user.custom_fields["test2"]).to eq("hello2")
+              expect(user.user_fields[user_field.id.to_s]).to eq('happy')
+            end
+
+            it "is secure when there are no registered editable fields" do
+              User.plugin_editable_user_custom_fields.clear
+              put "/u/#{user.username}.json", params: { custom_fields: { test1: :hello1, test2: :hello2 } }
+              expect(response.status).to eq(200)
+              expect(user.custom_fields["test1"]).to be_blank
+              expect(user.custom_fields["test2"]).to be_blank
+
+              put "/u/#{user.username}.json", params: { custom_fields: ["arrayitem1", "arrayitem2"] }
+              expect(response.status).to eq(200)
+            end
+
           end
         end
 
@@ -2532,6 +2571,18 @@ describe UsersController do
       expect(response).to redirect_to("/")
     end
 
+    context 'when cookies contains a destination URL' do
+      it 'should redirect to the URL' do
+        sign_in(Fabricate(:user))
+        destination_url = 'http://thisisasite.com/somepath'
+        cookies[:destination_url] = destination_url
+
+        get "/u/account-created"
+
+        expect(response).to redirect_to(destination_url)
+      end
+    end
+
     context "when the user account is created" do
       include ApplicationHelper
 
@@ -3097,14 +3148,83 @@ describe UsersController do
         expect(response.status).to eq(404)
       end
 
-      it 'works' do
-        FacebookUserInfo.create!(user_id: user.id, facebook_user_id: 12345, email: 'someuser@somedomain.tld')
-        stub = stub_request(:delete, 'https://graph.facebook.com/12345/permissions?access_token=123%7Cabcde').to_return(body: "true")
+      context "with fake provider" do
+        let(:authenticator) do
+          Class.new(Auth::Authenticator) do
+            attr_accessor :can_revoke
+            def name
+              "testprovider"
+            end
 
-        post "/u/#{user.username}/preferences/revoke-account.json", params: {
-          provider_name: 'facebook'
-        }
+            def enabled?
+              true
+            end
+
+            def description_for_user(user)
+              "an account"
+            end
+
+            def can_revoke?
+              can_revoke
+            end
+
+            def revoke(user, skip_remote: false)
+              true
+            end
+          end.new
+        end
+
+        before do
+          DiscoursePluginRegistry.register_auth_provider(Auth::AuthProvider.new(authenticator: authenticator))
+        end
+
+        after do
+          DiscoursePluginRegistry.reset!
+        end
+
+        it 'returns an error when revoking is not allowed' do
+          authenticator.can_revoke = false
+
+          post "/u/#{user.username}/preferences/revoke-account.json", params: {
+            provider_name: 'testprovider'
+          }
+          expect(response.status).to eq(404)
+
+          authenticator.can_revoke = true
+          post "/u/#{user.username}/preferences/revoke-account.json", params: {
+            provider_name: 'testprovider'
+          }
+          expect(response.status).to eq(200)
+        end
+
+        it 'works' do
+          authenticator.can_revoke = true
+
+          post "/u/#{user.username}/preferences/revoke-account.json", params: {
+            provider_name: 'testprovider'
+          }
+          expect(response.status).to eq(200)
+        end
+      end
+
+    end
+
+  end
+
+  describe '#revoke_auth_token' do
+
+    context 'while logged in' do
+      before do
+        sign_in(user)
+      end
+
+      it 'logs user out' do
+        expect(user.user_auth_tokens.count).to eq(1)
+
+        post "/u/#{user.username}/preferences/revoke-auth-token.json"
+
         expect(response.status).to eq(200)
+        expect(user.user_auth_tokens.count).to eq(0)
       end
 
     end

@@ -518,7 +518,6 @@ ca:
       long_form: 'ha agradat'
   user_activity:
     no_bookmarks:
-      self: "No tens publicacions marcades com a preferits, fer-ho et permet accedir-hi després amb facilitat."
       others: "Sense preferits."
     no_likes_given:
       self: "Encara no t'ha agradat cap publicació."
@@ -825,7 +824,6 @@ ca:
     post_menu: "Determina quins elements apareixen al menú de publicacions i en qui ordre. Per exemple,\nlike|edit|flag|delete|share|bookmark|reply"
     post_menu_hidden_items: "Els elements del menú que s'oculten per defecte al menú de publicacions, tret que es cliqui sobre una el·lipsi d'expansió."
     share_links: "Determina quins elements apareixen a diàleg d'acció i en qui ordre."
-    track_external_right_clicks: "Rastreig d'enllaços externs que es cliquen amb el botó dret (en obrir a una nova pestanya, per exemple) desactivat per defecte, perquè reescriu les URL."
     site_contact_username: "Un nom vàlid de membre de l'equip per emetre tots els missatges automàtics. Si es deixa buit, es farà servir el compte per defecte del sistema."
     send_welcome_message: "Envia a totes les noves persones usuàries un missatge de benvinguda amb la guia ràpida d'inici."
     suppress_reply_directly_below: "No mostris el recompte de respostes expansibles a una publicació quan només hi hagi una resposta directa sota la publicació."
@@ -928,8 +926,6 @@ ca:
     avatar_sizes: "Llista de mides d'avatar generades automàticament."
     external_system_avatars_enabled: "Fes servir un servei extern de sistema d'avatars."
     external_system_avatars_url: "Adreça URL del sitema extern de servei d'avatars. Les substitucions permeses són {username} {first_letter} {color} {size}"
-    default_opengraph_image_url: "Adreça URL del protocol opengraph d'imatge per defecte."
-    twitter_summary_large_image_url: "Adreça URL del resum de la targeta d'imatge per defecte de Twitter (hauria de fer almenys 280px d'amplada i com a míimim 150px d'alçada)."
     allow_all_attachments_for_group_messages: "Permet tots els adjunts de correu per a missatges de grup."
     enable_flash_video_onebox: "Habilita la incrustació d'enllaços swf i flv (Adobe Flash) emmarcats. ATENCIÓ: això pot comportar riscos de seguretat."
     default_invitee_trust_level: "Nivell de confiança per defecte (0-4) per a persones convidades."
@@ -1121,7 +1117,6 @@ ca:
     slug_generation_method: "Tria un mètode de generació d'adreces amigables. 'encoded' generarà un percentatge de codificació. 'none' anul·larà totalment l'adreça amigable."
     enable_emoji: "Activa emojo"
     emoji_set: "Com t'agradaria el teu emoji?"
-    enforce_square_emoji: "Força una relació d'aspecte quadrat per a tots els emojis."
     approve_post_count: "Cal aprovar la quantitat de publicacions d'una persona usuària nova o bàsica"
     approve_unless_trust_level: "Cal aprovar les publicacions per a persones usuàries amb aquest nivell de confiança"
     approve_new_topics_unless_trust_level: "Cal aprovar els nous temes per a persones amb aquest nivell de confiança"
@@ -1226,9 +1221,6 @@ ca:
     existing_topic_moderator_post:
       one: "Una publicació ha estat fusionada a un tema existent: %{topic_link}"
       other: "%{count} publicacions han estat fusionades a un tema existent: %{topic_link}"
-  change_owner:
-    post_revision_text: "Propietat transferida per %{old_user} a %{new_user}"
-    deleted_user: "una persona usuària esborrada"
   topic_statuses:
     archived_enabled: "Aquest tema ara està arxivat. Està congelat i no es pot canviar de cap manera."
     archived_disabled: "Aquest tema ara està desarxivat. Ja no està congelat i es pot canviar."
@@ -1712,7 +1704,6 @@ ca:
     recent_topics: "Recent"
     see_more: "Més"
     search_title: "Busca aquest lloc"
-    search_google: "Google"
   terms_of_service:
     title: "Condicions d'ús"
     signup_form_message: 'He llegit i accepto les <a href="/tos" target="_blank">Condicions del servei</a>.'

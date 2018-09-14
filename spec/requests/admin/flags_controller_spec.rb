@@ -34,7 +34,37 @@ RSpec.describe Admin::FlagsController do
   end
 
   context '#agree' do
-    it 'should work' do
+    it 'should raise a reasonable error if a flag was deferred and then someone else agreed' do
+      SiteSetting.queue_jobs = false
+
+      _post_action = PostAction.act(user, post_1, PostActionType.types[:spam], message: 'bad')
+
+      post "/admin/flags/defer/#{post_1.id}.json"
+      expect(response.status).to eq(200)
+
+      post "/admin/flags/agree/#{post_1.id}.json", params: { action_on_post: 'keep' }
+      # 409 means conflict which is what is happening here
+      expect(response.status).to eq(409)
+      error = JSON.parse(response.body)["errors"].first
+      expect(error).to eq(I18n.t("flags.errors.already_handled"))
+    end
+
+    it 'should be able to agree and keep content' do
+      SiteSetting.queue_jobs = false
+
+      post_action = PostAction.act(user, post_1, PostActionType.types[:spam], message: 'bad')
+
+      post "/admin/flags/agree/#{post_1.id}.json", params: { action_on_post: 'keep' }
+      expect(response.status).to eq(200)
+
+      post_action.reload
+      expect(post_action.agreed_by_id).to eq(admin.id)
+
+      post_1.reload
+      expect(post_1.deleted_at).to eq(nil)
+    end
+
+    it 'should be able to hide spam' do
       SiteSetting.allow_user_locale = true
       SiteSetting.queue_jobs = false
 
@@ -42,7 +72,6 @@ RSpec.describe Admin::FlagsController do
       admin.update!(locale: 'ja')
 
       post "/admin/flags/agree/#{post_1.id}.json"
-
       expect(response.status).to eq(200)
 
       post_action.reload

@@ -546,6 +546,16 @@ describe User do
       expect(User.username_available?('tESt')).to eq(false)
     end
 
+    it 'returns true when reserved username is explicity allowed' do
+      SiteSetting.reserved_usernames = 'test|donkey'
+
+      expect(User.username_available?(
+        'tESt',
+        nil,
+        allow_reserved_username: true)
+      ).to eq(true)
+    end
+
     it "returns true when username is associated to a staged user of the same email" do
       staged = Fabricate(:user, staged: true, email: "foo@bar.com")
       expect(User.username_available?(staged.username, staged.primary_email.email)).to eq(true)
@@ -1782,6 +1792,26 @@ describe User do
       expect([avatar1.id, avatar2.id]).to include(user.uploaded_avatar_id)
       expect(user.user_avatar.custom_upload_id).to eq(user.uploaded_avatar_id)
     end
+  end
+
+  describe "ensure_consistency!" do
+
+    it "will clean up dangling avatars" do
+      upload = Fabricate(:upload)
+      user = Fabricate(:user, uploaded_avatar_id: upload.id)
+
+      upload.destroy!
+      user.reload
+      expect(user.uploaded_avatar_id).to eq(nil)
+
+      user.update_columns(uploaded_avatar_id: upload.id)
+
+      User.ensure_consistency!
+
+      user.reload
+      expect(user.uploaded_avatar_id).to eq(nil)
+    end
+
   end
 
 end

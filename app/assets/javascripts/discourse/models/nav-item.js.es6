@@ -175,7 +175,8 @@ NavItem.reopenClass({
       );
 
     const extraItems = NavItem.extraNavItems.filter(item => {
-      return item.customFilter && item.customFilter.call(this, category, args);
+      if (!item.customFilter) return true;
+      return item.customFilter.call(this, category, args);
     });
 
     return items.concat(extraItems);

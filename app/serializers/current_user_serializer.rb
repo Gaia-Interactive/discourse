@@ -101,7 +101,7 @@ class CurrentUserSerializer < BasicUserSerializer
   end
 
   def can_send_private_email_messages
-    scope.cand_send_private_messages_to_email?
+    scope.can_send_private_messages_to_email?
   end
 
   def can_edit
@@ -168,7 +168,7 @@ class CurrentUserSerializer < BasicUserSerializer
           WHEN notification_level = 4 THEN 3
         END")
       .pluck(:category_id)
-      .slice(0, SiteSetting.hamburger_menu_categories_count)
+      .slice(0, SiteSetting.header_dropdown_category_count)
   end
 
   def dismissed_banner_key

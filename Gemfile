@@ -34,7 +34,7 @@ gem 'redis-namespace'
 
 gem 'active_model_serializers', '~> 0.8.3'
 
-gem 'onebox', '1.8.55'
+gem 'onebox', '1.8.60'
 
 gem 'http_accept_language', '~>2.0.5', require: false
 
@@ -88,6 +88,7 @@ gem 'thor', require: false
 gem 'rinku'
 gem 'sanitize'
 gem 'sidekiq'
+gem 'mini_scheduler'
 
 # for sidekiq web
 gem 'tilt', require: false
@@ -180,6 +181,8 @@ gem 'rqrcode'
 
 gem 'sshkey', require: false
 
+gem 'rchardet', require: false
+
 if ENV["IMPORT"] == "1"
   gem 'mysql2'
   gem 'redcarpet'
@@ -193,3 +196,4 @@ gem 'webpush', require: false
 
 # Gems added by PopSquareK listed below:
 gem 'discourse_api'
+gem 'colored2', require: false

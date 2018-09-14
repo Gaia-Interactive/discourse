@@ -23,8 +23,9 @@ class InlineOneboxer
 
   def self.lookup(url, opts = nil)
     opts ||= {}
+    opts = opts.with_indifferent_access
 
-    unless opts[:skip_cache]
+    unless opts[:skip_cache] || opts[:invalidate]
       cached = cache_lookup(url)
       return cached if cached.present?
     end
@@ -46,7 +47,7 @@ class InlineOneboxer
     if always_allow || domains
       uri = begin
         URI(url)
-      rescue URI::InvalidURIError
+      rescue URI::Error
       end
 
       if uri.present? &&

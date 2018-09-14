@@ -29,6 +29,7 @@ ko:
   loading: "로딩중"
   powered_by_html: '<a href="https://www.discourse.org">Discourse</a> 으로 호스팅되고 있습니다. JavaScript 가 활성화되어 있을 때 가장 멋지게 보입니다.'
   log_in: "로그인"
+  submit: "제출"
   purge_reason: "자동적으로 비활성화된 계정을 삭제하였습니다."
   disable_remote_images_download_reason: "디스크저장공간이 부족하여 원격 이미지 다운로드 기능이 비활성화 되었습니다."
   anonymous: "익명"
@@ -36,6 +37,11 @@ ko:
   themes:
     bad_color_scheme: "색 스케마가 잘못되어서 테마를 업데이트할 수 없습니다"
     other_error: "테마를 업데이트할 수 없습니다"
+    settings_errors:
+      number_value_not_valid_min_max: "반드시 값은 %{min}와 %{max}사이어야 합니다."
+      number_value_not_valid_min: "%{min}과 같거나 커야합니다."
+      number_value_not_valid_max: "%{max}과 같거나 작아야합니다."
+      string_value_not_valid: "새로운 값의 길이가 허용된 범위를 벗어났습니다."
   emails:
     incoming:
       default_subject: "토픽에는 제목이 필요합니다"
@@ -58,6 +64,7 @@ ko:
       unrecognized_error: "인식되지 않은 에러"
   errors: &errors
     format: '%{attribute} %{message}'
+    format_with_full_message: '<b>%{attribute}</b>:%{message}'
     messages:
       too_long_validation: "%{length}자를 입력하셨습니다. 최대 %{max}자까지 입력 가능합니다. "
       invalid_boolean: "잘못된 부울린값입니다."
@@ -83,6 +90,7 @@ ko:
       not_an_integer: 정수여야 함
       odd: 홀수여야 함
       record_invalid: '유효성검사 실패: %{errors}'
+      max_emojis: "가질수있는 이모티콘 개수가%{max_emojis_count}를 넘을수 없습니다."
       restrict_dependent_destroy:
         one: "연관된 %{record} 레코드가 존재하므로 레코드를 지울 수 없음."
         many: "연관된 %{record} 레코드가 존재하므로 레코드를 지울 수 없음."
@@ -152,6 +160,7 @@ ko:
   no_mentions_allowed_newuser: "죄송합니다. 새로운 사용자는 다른 사용자를 언급할 수 없습니다."
   too_many_mentions_newuser:
     other: "죄송합니다. 신규 회원은 %{count}명의 사용자만 언급할 수 있습니다."
+  no_images_allowed_trust: "죄송합니다, 포스트에 이미지를 넣을수 없습니다."
   no_images_allowed: "죄송합니다. 신규 회원은 글에 이미지를 넣을 수 없습니다."
   too_many_images:
     other: "죄송합니다. 신규회원은 글 하나에 %{count}개의 이미지만 넣을 수 있습니다."
@@ -372,6 +381,7 @@ ko:
     replace_paragraph: "(이 문단을 새로운 카테고리를 간단히 설명하는 내용으로 대체하세요. 이 가이드는 카테고리 섹션 영역에 표시되므로, 200자 이하로 유지하는 게 좋습니다. **이 설명을 편집하거나 토픽을 생성하기 전까지는, 이 카테고리는 카테고리 페이지에 표시되지 않습니다.**)"
     post_template: "%{replace_paragraph}\n\n다음 문단을 긴 설명을 쓰는데 활용하세요. 카테고리의 가이드라인이나 규칙을 쓰실 수도 있습니다.\n\n- 왜 이 카테고리를 사용해야하나요? 용도가 무엇인가요?\n\n- 기존의 다른 카테고리와 정확히 어떻게 다른가요?\n\n- 이 카테고리에 속한 토픽들은 대체로 무엇을 다루나요?\n\n- 이 카테고리가 필요한가요? 다른 카테고리와 병합하거나 서브 카테고리로 만들면 안되나요?\n"
     errors:
+      not_found: "카테고리를 찾을수 없습니다!"
       uncategorized_parent: "Uncategorized 카테고리는 부모 카테고리를 가질 수 없습니다."
       self_parent: "하위 카테고리의 부모는 자신이 될 수 없습니다."
       depth: "하위 카테고리는 계층 구조로 사용할 수 없습니다."
@@ -396,6 +406,9 @@ ko:
     leader:
       title: "리더"
     change_failed_explanation: "당신은 %{user_name} 사용자를 '%{new_trust_level}'으로 강등시키려 하였습니다. 하지만 해당 사용자의 회원등급는 이미 '%{current_trust_level}'입니다. %{user_name} 사용자의 회원등급는 '%{current_trust_level}'으로 유지됩니다.  - if you wish to demote user lock trust level first"
+  post:
+    image_placeholder:
+      broken: "이미지를 표시할수없음"
   rate_limiter:
     hours:
       other: "%{count}시간"
@@ -526,8 +539,9 @@ ko:
       short_description: '좋아요'
       long_form: '이것을 좋아함'
   user_activity:
+    no_default:
+      others: "활동 없음."
     no_bookmarks:
-      self: "북마크한 포스트가 없습니다. 포스트를 북마크하면 나중에 쉽게 확인할 수 있습니다."
       others: "북마크가 없습니다"
     no_likes_given:
       self: "좋아요한 게시글이 없습니다"
@@ -838,7 +852,6 @@ ko:
     post_menu: "글 메뉴에 어떤 사항들이 무슨 순서로 올라올지 결정합니다. 예: like(좋아요)|edit(수정)|flag(신고)|delete(삭제)|share(공유)|bookmark(북마크)|reply(답글)"
     post_menu_hidden_items: "게시 메뉴에서 기본으로 숨길 메뉴 아이템들"
     share_links: "공유 다이얼로그에 어떤 아이템이 어떤 순서로 나올지 결정"
-    track_external_right_clicks: "우클릭한 외부 링크를 추적한다 (에: 새 탭 열기) 이 설정을 위해선 해당 URL를 다시 써야하는 이유로 기본값은 비활성화이다."
     site_contact_username: "자동 메세지를 보낼 올바른 스태프 아이디. 빈칸으로 놔두면 기본 시스템 계정이 사용됩니다."
     send_welcome_message: "모든 신규 유저들에게 시작 매뉴얼과 함께 환영 메세지 보내기"
     suppress_reply_directly_below: "글의 바로 아래에 단 하나의 댓글만 있는 경우 '댓글 수'를 보여주지 않음"
@@ -945,8 +958,6 @@ ko:
     avatar_sizes: "자동 생성 아바타 사이즈 목록"
     external_system_avatars_enabled: "외부 아바타 시스템을 사용하기"
     external_system_avatars_url: "외부 아바타 서비스의 URL. {username} {first_letter} {color} {size} 의 대체가 허용됨"
-    default_opengraph_image_url: "기본 오픈그래프 이미지의 URL"
-    twitter_summary_large_image_url: "기본 Twitter 요약 카드 이미지의 URL( 가로 280px, 세로 150px 이상이어야 함)"
     allow_all_attachments_for_group_messages: "그룹 메시지에 모든 이메일 첨부 허용"
     png_to_jpg_quality: "변환된 JPG 파일의 퀄리티(1은 최하, 99는 최상, 100은 해제)"
     allow_staff_to_upload_any_file_in_pm: "운영진이 보내는 개인메시지에 모든 파일 첨부 허용"
@@ -1138,7 +1149,6 @@ ko:
     slug_generation_method: "slug 생성 방식. 'encoded'는 퍼센트 기호로 인코딩해서 생성합니다. 'none'은 slug 자체를 비활성화합니다.."
     enable_emoji: "emoji 활성화"
     emoji_set: "어떤 emoji가 좋은가요?"
-    enforce_square_emoji: "모든 emoji를 정사각형 비율로 강제로 바꿉니다."
     approve_unless_trust_level: "허가 받고 글 올려야 하는 유저들 최저 회원등급"
     default_email_mailing_list_mode: "기본으로 새로운 포스트가 생길 때마다 이메일 보내기"
     default_email_mailing_list_mode_frequency: "이 빈도로 이메일 받기를 설정한 메일링 리스트 가입자"
@@ -1179,9 +1189,6 @@ ko:
   redirected_to_top_reasons:
     new_user: "우리 커뮤니티에 오신 것을 환영합니다! 다음은 우리 사이트에서 가장 인기 많은 최근 글타래들입니다."
     not_seen_in_a_month: "잘 돌아오셨습니다. 다음은 당신이 오지 않은 동안 가장 인기있던 글타래들입니다."
-  change_owner:
-    post_revision_text: "소유권이 %{old_user}에서 %{new_user}으로 이전되었습니다."
-    deleted_user: "삭제된 사용자"
   topic_statuses:
     archived_enabled: "이 글타래는 보관되었고 더이상 변경하실 수 없습니다."
     archived_disabled: "이 글타래의 보관이 풀렸고 이제 변경하실 수 있습니다."
@@ -1383,7 +1390,6 @@ ko:
     recent_topics: "최근"
     see_more: "더"
     search_title: "이 사이트 검색"
-    search_google: "Google"
   terms_of_service:
     title: "서비스 이용약관"
     signup_form_message: 'I have read and accept the <a href="/tos" target="_blank">Terms of Service</a>.'

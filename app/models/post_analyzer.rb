@@ -98,7 +98,7 @@ class PostAnalyzer
         uri = self.class.parse_uri_rfc2396(u)
         host = uri.host
         @linked_hosts[host] ||= 1 unless host.nil?
-      rescue URI::InvalidURIError, URI::InvalidComponentError
+      rescue URI::Error
         # An invalid URI does not count as a host
         next
       end
@@ -127,8 +127,6 @@ class PostAnalyzer
     raw_links.size
   end
 
-  private
-
   def cooked_stripped
     @cooked_stripped ||= begin
       doc = Nokogiri::HTML.fragment(cook(@raw, topic_id: @topic_id))
@@ -136,6 +134,8 @@ class PostAnalyzer
       doc
     end
   end
+
+  private
 
   def link_is_a_mention?(l)
     html_class = l['class']
