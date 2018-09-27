@@ -1,0 +1,124 @@
+@media(min-width:320px) and (max-width:767px) {
+.video_column { padding: 0 8px !important; width: 50% !important; }
+.video_column_wrapper h2 { font-size: 17px; }
+.video_column_wrapper a img { width: 100%; }
+.video_column_wrapper p { font-size: 13px; line-height: 18px; }
+.video_column_wrapper p span { font-size: 33px; margin-right: 6px; margin-top: 4px; }
+.comon_title h2 { font-size: 26px; }
+.comon_title h2 span { width: 20px; margin: 0 5px; }
+.recent_trending_left .carousel { height: 300px; margin-bottom: 20px; }
+.tab_column .tab-content { padding: 4px 10px 45px; }
+.recent_column_text h4 { font-size: 15px; }
+.recent_column_text p { font-size: 14px; line-height: 20px; }
+.news_column { margin-top: 30px; }
+.news_column_date { width: 100%; padding-top: 10px; margin-bottom: 20px; }
+.news_column_desc { width: 100%; margin-top: 25px; text-align: left; }
+.insta_icons li { margin: 0 5px; float: none; display: inline-block; }
+.news_right .tab_column .recent_column_text .insta_icons li { margin-right: 2px; }
+.news_column_desc h3 { line-height: 30px; margin: 6px 0 5px !important; font-size: 20px; }
+.news_column_image {
+	max-width: 100%;
+	margin: 0 20px;
+	float: none;
+	margin: 0px auto;
+}
+.news_column_image img{ width:100%;}
+.insta_icons li { margin-right: 5px; }
+.footer_column { margin-top: 22px; text-align: center; }
+.footer_column ul li { margin-top: 8px; display: inline-block; margin: 2px 4px; float: none; }
+.footer_column p span { float: none; margin-right: 12px; }
+.news_right_advertisement { text-align: center; }
+.news_right_advertisement img { max-width: 290px; }
+.footer_section { padding: 0px 0 15px; margin-top: 40px; }
+.news_right .tab_column .tab-content .recent_column_div { width: 100%; padding-right: 0; }
+.header { padding: 12px 0px; margin-bottom: 40px; }
+.logo { float: left; margin-right: 10px; }
+.logo img { max-width: 137px; }
+.header_left_links { float: right; margin-top: 4px; }
+.header_left_links a { margin-right: 0; margin-left: 10px; }
+.header_right { text-align: center !important; margin-top: 10px; }
+.header_right .dropdown { margin: 0 7px; }
+.profile_dropdown a img { width: 40px; height: 40px; }
+.dropdown.mail_dropdown .dropdown-menu { top: 43px; }
+.dropdown .dropdown-menu { left: auto !important; right: -90px !important; }
+.dropdown.mail_dropdown.open::after { bottom: -21px; }
+.dropdown.bell_dropdown .dropdown-menu { top: 45px !important; border: 2px solid #DE3A38 !important; right: -130px !important; }
+.dropdown.bell_dropdown.open::after { bottom: -18px !important; }
+.dropdown .dropdown-menu.search_form { width: 270px; top: 43px !important; left: -47px !important; }
+.dropdown.mail_dropdown.search_dropdown.open::after { bottom: -18px; }
+.nbs-flexisel-item img { max-width: 240px; }
+.footer_column p { font-size: 14px; }
+}
+@media(min-width:480px) and (max-width:639px) {
+.header_right .dropdown { margin: 0 12px; }
+}
+@media(min-width:640px) and (max-width:767px) {
+.header_left { margin-top: 7px; width: 50% !important; }
+.header_right { text-align: right !important; margin-top: 0; width: 50% !important; float: right !important; }
+.recent_trending_left .carousel { height: 380px; }
+}
+ @media(min-width:768px) and (max-width:1023px) {
+.logo { float: left; margin-right: 10px; }
+.logo img {
+	max-width: 120px;
+}
+.header { padding: 12px 0px; }
+.header_left_links { float: left; margin-top: 7px; }
+.header_left_links a { margin-right: 0; margin-left: 10px; }
+.header_right { text-align: right !important; margin-top: 0; }
+.header_right .dropdown { margin: 0 7px; }
+.profile_dropdown a img { width: 40px; height: 40px; }
+.dropdown.mail_dropdown .dropdown-menu { top: 43px; }
+.dropdown .dropdown-menu { left: auto !important; right: -40px !important; }
+.dropdown.mail_dropdown.open::after { bottom: -21px; }
+.dropdown.bell_dropdown .dropdown-menu { top: 45px !important; border: 2px solid #DE3A38 !important; right: -70px !important; }
+.dropdown.bell_dropdown.open::after { bottom: -18px !important; }
+.dropdown .dropdown-menu.search_form { width: 270px; top: 43px !important; left: -7px !important; }
+.dropdown.mail_dropdown.search_dropdown.open::after { bottom: -18px; }
+.video_column_wrapper h2 { font-size: 20px; }
+.video_column_wrapper p { font-size: 13px; line-height: 18px; }
+.recent_column_text h4 { font-size: 16px; }
+.news_column_image { max-width: 235px; margin: 0 20px; }
+.news_column_desc { width: calc(100% - 425px); }
+.insta_icons li { margin-right: 18px; }
+.news_right_advertisement img { max-width: 360px; }
+.recent_trending_left .carousel { position: relative; height: 400px; }
+.recent_trending_right .tab_column { height: 403px; }
+.recent_trending_right .tab_column .tab-content { height: 363px; }
+.recent_trending_right .tab-pane { height: 100%; }
+.news_right .tab_column .tab-content {
+	height: 458px;
+}
+}
+@media(min-width:992px) and (max-width:1023px) {
+.news_left { width: 68% !important; }
+.news_right { width: 32% !important; }
+.tab_column .nav li a { padding: 10px 19px; }
+.news_right .tab_column .tab-content .recent_column_div { padding-right: 0 !important; }
+.news_column_image { max-width: 205px; margin: 0 20px; }
+.news_column_desc { width: calc(100% - 395px); }
+.news_column_desc h3 { line-height: 26px; margin: 6px 0 10px !important; font-size: 17px; }
+.news_column_desc p { font-size: 14px; line-height: 21px; }
+.insta_icons li { margin-right: 10px; font-size: 13px; }
+.insta_icons li img { margin-right: 5px; max-width: 25px; }
+.news_right_advertisement img { max-width: 100%; }
+}
+ @media(min-width:1024px) and (max-width:1280px) {
+.video_column_wrapper h2 { font-size: 26px; }
+.news_left { width: 68% !important; }
+.news_right { width: 32% !important; }
+.tab_column .nav li a { padding: 10px 19px; }
+.news_right .tab_column .tab-content .recent_column_div { padding-right: 0 !important; }
+.news_column_image { max-width: 205px; margin: 0 20px; }
+.news_column_desc { width: calc(100% - 395px); }
+.news_column_desc h3 { line-height: 26px; margin: 6px 0 10px !important; font-size: 17px; }
+.news_column_desc p { font-size: 14px; line-height: 21px; }
+.insta_icons li { margin-right: 10px; font-size: 13px; }
+.insta_icons li img { margin-right: 5px; max-width: 25px; }
+.news_right_advertisement img { max-width: 100%; }
+}
+ @media(min-width:1281px) and (max-width:1450px) {
+.news_left { width: 70% !important; }
+.news_right { width: 30% !important; }
+.news_column_desc { width: calc(100% - 550px); }
+}
